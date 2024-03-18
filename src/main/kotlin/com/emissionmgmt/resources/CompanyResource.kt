@@ -13,4 +13,11 @@ class CompanyResource(val repository: CompanyRepository) {
     @Produces(MediaType.APPLICATION_JSON)
     fun getCompanies(): Response = Response.ok(repository.listAll()).build()
 
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun getCompanyById(
+        @PathParam("id") id: Long
+    ): Response = Response.ok(repository.findById(id)).build()
+
 }
