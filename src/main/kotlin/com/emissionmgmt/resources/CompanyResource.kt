@@ -30,4 +30,28 @@ class CompanyResource(val repository: CompanyRepository) {
         return Response.ok(company).status(201).build()
     }
 
+    @PUT
+    @Path("/{id}")
+    @Transactional
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    fun updateCompany(@PathParam("id") id: Long, updatedCompany: Company): Response {
+        val existingCompany = repository.findById(id) ?: return Response.status(Response.Status.NOT_FOUND).build()
+        
+        // Update the fields of the existingCompany entity with values from updatedCompany
+        existingCompany.apply {
+            companyName = updatedCompany.companyName
+            naceCode = updatedCompany.naceCode
+            gva = updatedCompany.gva
+            scope1Emissions = updatedCompany.scope1Emissions
+            scope2Emissions = updatedCompany.scope2Emissions
+            scope3Emissions = updatedCompany.scope3Emissions
+        }
+        
+        // Save the updated entity to the database
+        existingCompany.persist()
+        
+        return Response.ok(existingCompany).build()
+    }
+
 }
