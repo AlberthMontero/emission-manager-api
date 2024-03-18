@@ -54,4 +54,15 @@ class CompanyResource(val repository: CompanyRepository) {
         return Response.ok(existingCompany).build()
     }
 
+    @DELETE
+    @Path("/{id}")
+    @Transactional
+    @Produces(MediaType.APPLICATION_JSON)
+    fun deleteCompany(@PathParam("id") id: Long): Response {
+        val company = repository.findById(id) ?: return Response.status(Response.Status.NOT_FOUND).build()
+
+        repository.delete(company)
+
+        return Response.noContent().build()
+    } 
 }
