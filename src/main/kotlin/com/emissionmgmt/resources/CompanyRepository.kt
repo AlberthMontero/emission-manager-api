@@ -7,5 +7,5 @@ import jakarta.enterprise.context.ApplicationScoped
 class CompanyRepository : PanacheRepository<Company> {
 
     // Define custom query methods here (optional)
-   
+    fun findByCompanyName(companyName: String) = list("companyName = '$companyName'")
 }

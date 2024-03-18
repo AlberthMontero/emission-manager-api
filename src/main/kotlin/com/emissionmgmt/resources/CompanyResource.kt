@@ -20,6 +20,13 @@ class CompanyResource(val repository: CompanyRepository) {
         @PathParam("id") id: Long
     ): Response = Response.ok(repository.findById(id)).build()
 
+    @GET
+    @Path("/search")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun findByCompanyName(
+        @QueryParam("companyName") companyName: String
+    ): Response = Response.ok(repository.findByCompanyName(companyName)).build()
+
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
