@@ -20,4 +20,14 @@ class CompanyResource(val repository: CompanyRepository) {
         @PathParam("id") id: Long
     ): Response = Response.ok(repository.findById(id)).build()
 
+    @POST
+    @Transactional
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    fun createCompany(company: Company): Response {
+        repository.persist(company)
+
+        return Response.ok(company).status(201).build()
+    }
+
 }
