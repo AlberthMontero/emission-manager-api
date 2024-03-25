@@ -37,7 +37,7 @@ class CompanyResource(val repository: CompanyRepository) {
         return Response.ok(company).status(201).build()
     }
 
-    @PUT
+    @PATCH
     @Path("/{id}")
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
